@@ -1,8 +1,10 @@
 require 'httparty'
 require 'json'
+require_relative 'roadmap'
 
 class Kele
   include HTTParty
+  include Roadmap
   default_options.update(verify: false)
   base_uri "https://www.bloc.io/api/v1"
 
@@ -24,12 +26,9 @@ class Kele
   end
 
   def get_mentor_availability(id)
-    arr = []
+  ## chain_id = 7094
   ##  mentor_id = get_me["current_enrollment"]["mentor_id"] 529277
     response = self.class.get("/mentors/#{id}/student_availability", headers: { "authorization" => @auth_token })
-    slots = JSON.parse(response.body)
-    slots.each do |x|
-      arr << x
-    end
+    JSON.parse(response.body)
   end
 end
