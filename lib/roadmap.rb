@@ -1,18 +1,18 @@
 module Roadmap
     def get_roadmap(chain_id)
       checkpoints = Hash.new
-      count = 0
+      arr = []
       response = self.class.get("/roadmaps/#{chain_id}", headers: { "authorization" => @auth_token })
       JSON.parse(response.body)
       @sections = response["sections"]
-      @section_checkpoint = @sections.each do |x|
+      @sections.each do |x|
         x.each do |key, value|
           if key == "checkpoints"
-            checkpoints[count] = value
+            arr << value
           end
         end
-        count += 1
       end
+      @section_checkpoints = arr
     end
 
     def get_checkpoint(checkpoint_id)
