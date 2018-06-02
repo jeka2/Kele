@@ -40,11 +40,12 @@ class Kele
     end
   end
 
-  def create_message(sender, recipient_id, subject = nil, stripped_text)
+  def create_message(sender, recipient_id, token = nil, subject = nil, stripped_text)
     options = {
       body: {
         sender: sender,
         recipient_id: recipient_id,
+        token: token,
         subject: subject,
         "stripped-text": stripped_text
       }
